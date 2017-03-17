@@ -15,7 +15,7 @@ class ProductTableCell : UITableViewCell {
     @IBOutlet weak var stockStepper: UIStepper!
     @IBOutlet weak var stockField: UITextField!
     
-    var productId: Int?
+    var product: Product?
 }
 
 class ViewController: UIViewController, UITableViewDataSource {
@@ -24,16 +24,16 @@ class ViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
     
     var products = [
-        ("A", "A Desc", "Category 1", 275.0, 10),
-        ("B", "B Desc", "Category 2", 48.95, 14),
-        ("C", "C Desc", "Category 2", 19.5, 32),
-        ("D", "D Desc", "Category 3", 34.95, 1),
-        ("E", "E Desc", "Category 3", 79500.0, 4),
-        ("F", "F Desc", "Category 3", 16.0, 8),
-        ("G", "G Desc", "Category 4", 29.95, 3),
-        ("H", "H Desc", "Category 4", 75.0, 2),
-        ("I", "I Desc", "Category 4", 1200.0, 4)
-    ]
+        Product(name: "A", description: "A Desc", category: "Category 1", price: 275.0, stockLevel: 10),
+        Product(name: "B", description: "B Desc", category: "Category 2", price: 48.95, stockLevel: 14),
+        Product(name: "C", description: "C Desc", category: "Category 2", price: 19.5, stockLevel: 32),
+        Product(name: "D", description: "D Desc", category: "Category 3", price: 34.95,stockLevel:  1),
+        Product(name: "E", description: "E Desc", category: "Category 3", price: 79500.0, stockLevel: 4),
+        Product(name: "F", description: "F Desc", category: "Category 3", price: 16.0, stockLevel: 8),
+        Product(name: "G", description: "G Desc", category: "Category 4", price: 29.95, stockLevel: 3),
+        Product(name: "H", description: "H Desc", category: "Category 4", price: 75.0, stockLevel: 2),
+        Product(name: "I", description: "I Desc", category: "Category 4", price: 1200.0, stockLevel: 4)
+    ]                                                                                    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,8 +45,12 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
     
     func displayStockTotal() {
-        let stockTotal = products.reduce(0, { (total, product) -> Int in return total + product.4 })
-        totalStockLabel.text = "\(stockTotal) Products in Stock"
+        let finalTotals:(Int, Double) = products.reduce((0, 0.0), {(total, products) -> (Int, Double) in return (
+            total.0 + products.stockLevel,
+            total.1 + products.stockValue
+            )
+        })
+        totalStockLabel.text = "\(finalTotals.0) \(Utils.currencyStringFromNumber(finalTotals.1))"
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -56,11 +60,11 @@ class ViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let product = products[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell") as! ProductTableCell
-        cell.productId = indexPath.row
-        cell.nameLabel.text = product.0
-        cell.descriptionLabel.text = product.1
-        cell.stockStepper.value = Double(product.4)
-        cell.stockField.text = String(product.4)
+        cell.product = products[indexPath.row]
+        cell.nameLabel.text = product.name
+        cell.descriptionLabel.text = product.description
+        cell.stockStepper.value = Double(product.stockLevel)
+        cell.stockField.text = String(product.stockLevel)
         return cell
     }
     
@@ -69,11 +73,9 @@ class ViewController: UIViewController, UITableViewDataSource {
             while (true) {
                 currentCell = currentCell.superview!
                 if let cell = currentCell as? ProductTableCell {
-                    if let id = cell.productId {
-                        var newStockLevel: Int?
-
+                    if let product = cell.product {
                         if let stepper = sender as? UIStepper {
-                            newStockLevel = Int(stepper.value)
+                            product.stockLevel = Int(stepper.value)
                         }
                         else if let textfield = sender as? UITextField {
                             if let newValue = textfield.text {
@@ -81,12 +83,8 @@ class ViewController: UIViewController, UITableViewDataSource {
                                 product.stockLevel = newValueWrp
                             }
                         }
-
-                        if let level = newStockLevel {
-                            products[id].4 = level
-                            cell.stockStepper.value = Double(level)
-                            cell.stockField.text = String(level)
-                        }
+                        cell.stockStepper.value = Double(product.stockLevel)
+                        cell.stockField.text = String(product.stockLevel)
                     }
                     break
                 }
