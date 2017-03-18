@@ -16,15 +16,10 @@ class ProductTableCell : UITableViewCell {
     var product: Product?
 }
 
-var handler = { (p: Product) in
-    print("\(p.name) \(p.stockLevel)")
-}
-
 class ViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var totalStockLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
-    let logger = Logger<Product>(callback: handler)
-    
+
     var products = [
         Product(name: "A", description: "A Desc", category: "Category 1", price: 275.0, stockLevel: 10),
         Product(name: "B", description: "B Desc", category: "Category 2", price: 48.95, stockLevel: 14),
@@ -87,7 +82,7 @@ class ViewController: UIViewController, UITableViewDataSource {
                         }
                         cell.stockStepper.value = Double(product.stockLevel)
                         cell.stockField.text = String(product.stockLevel)
-                        logger.logItem(item: product)
+                        productLogger.logItem(item: product)
                     }
                     break
                 }
