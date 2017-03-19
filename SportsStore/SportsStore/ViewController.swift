@@ -19,6 +19,7 @@ class ProductTableCell : UITableViewCell {
 class ViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var totalStockLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    var productStore = ProductDataStore()
 
     var products = [
         Product(name: "A", description: "A Desc", category: "Category 1", price: 275.0, stockLevel: 10),
@@ -35,6 +36,16 @@ class ViewController: UIViewController, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         displayStockTotal()
+
+        productStore.callback = {(p: Product) in
+            for cell in self.tableView.visibleCells {
+                if let pcell = cell as? ProductTableCell {
+                    pcell.stockStepper.value = Double(p.stockLevel)
+                    pcell.stockField.text = String(p.stockLevel)
+                }
+            }
+            self.displayStockTotal()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,7 +53,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
     
     func displayStockTotal() {
-        let finalTotals:(Int, Double) = products.reduce((0, 0.0), {(total, products) -> (Int, Double) in return (
+        let finalTotals:(Int, Double) = productStore.products.reduce((0, 0.0), {(total, products) -> (Int, Double) in return (
             total.0 + products.stockLevel,
             total.1 + products.stockValue
             )
@@ -51,13 +62,13 @@ class ViewController: UIViewController, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return products.count
+        return productStore.products.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let product = products[indexPath.row]
+        let product = productStore.products[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductCell") as! ProductTableCell
-        cell.product = products[indexPath.row]
+        cell.product = product
         cell.nameLabel.text = product.name
         cell.descriptionLabel.text = product.productDescription
         cell.stockStepper.value = Double(product.stockLevel)
