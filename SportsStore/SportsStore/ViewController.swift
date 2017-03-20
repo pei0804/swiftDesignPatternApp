@@ -46,6 +46,7 @@ class ViewController: UIViewController, UITableViewDataSource {
             }
             self.displayStockTotal()
         }
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,6 +60,10 @@ class ViewController: UIViewController, UITableViewDataSource {
             )
         })
         totalStockLabel.text = "\(finalTotals.0) \(Utils.currencyStringFromNumber(finalTotals.1))"
+        let factory = StockTotalFactory.getFactory(curr: StockTotalFactory.Currency.GBP)
+        let totalAmount = factory.converter?.convertTotal(total: finalTotals.1)
+        let formatted = factory.formatter?.formatToal(total: totalAmount!)
+        totalStockLabel.text = "\(finalTotals.0) \(formatted!)"
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
