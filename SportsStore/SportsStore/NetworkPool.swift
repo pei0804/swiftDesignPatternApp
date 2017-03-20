@@ -26,9 +26,9 @@ final class NetworkPool {
         semaphore.wait()
         var result: NetworkConnection? = nil
         serialQueue.sync {
-            if(self.connections.count > 0) {
+            if self.connections.count > 0 {
                 result = self.connections.remove(at: 0)
-            } else if(self.itemsCreated < self.connectionCount) {
+            } else if self.itemsCreated < self.connectionCount {
                 result = NetworkConnection()
                 self.itemsCreated += 1
             }

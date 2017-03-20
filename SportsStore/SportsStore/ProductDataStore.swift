@@ -24,10 +24,10 @@ final class ProductDataStore {
             networkQueue.sync {
                 let stockConn = NetworkPool.getConnection()
                 let level = stockConn.getStockLevel(name: p.name)
-                if(level != nil) {
+                if level != nil {
                     p.stockLevel = level!
                     uiQueue.sync {
-                        if(self.callback != nil) {
+                        if self.callback != nil {
                             self.callback!(p)
                         }
                     }
