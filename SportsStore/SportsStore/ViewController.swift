@@ -22,15 +22,15 @@ class ViewController: UIViewController, UITableViewDataSource {
     var productStore = ProductDataStore()
 
     var products = [
-        Product(name: "A", description: "A Desc", category: "Category 1", price: 275.0, stockLevel: 10),
-        Product(name: "B", description: "B Desc", category: "Category 2", price: 48.95, stockLevel: 14),
-        Product(name: "C", description: "C Desc", category: "Category 2", price: 19.5, stockLevel: 32),
-        Product(name: "D", description: "D Desc", category: "Category 3", price: 34.95,stockLevel:  1),
-        Product(name: "E", description: "E Desc", category: "Category 3", price: 79500.0, stockLevel: 4),
-        Product(name: "F", description: "F Desc", category: "Category 3", price: 16.0, stockLevel: 8),
-        Product(name: "G", description: "G Desc", category: "Category 4", price: 29.95, stockLevel: 3),
-        Product(name: "H", description: "H Desc", category: "Category 4", price: 75.0, stockLevel: 2),
-        Product(name: "I", description: "I Desc", category: "Category 4", price: 1200.0, stockLevel: 4)
+        Product.createProduct(name: "A", description: "A Desc", category: "1", price: 275.0, stockLevel: 10),
+        Product.createProduct(name: "B", description: "B Desc", category: "2", price: 48.95, stockLevel: 14),
+        Product.createProduct(name: "C", description: "C Desc", category: "2", price: 19.5, stockLevel: 32),
+        Product.createProduct(name: "D", description: "D Desc", category: "3", price: 34.95,stockLevel:  1),
+        Product.createProduct(name: "E", description: "E Desc", category: "3", price: 79500.0, stockLevel: 4),
+        Product.createProduct(name: "F", description: "F Desc", category: "3", price: 16.0, stockLevel: 8),
+        Product.createProduct(name: "G", description: "G Desc", category: "4", price: 29.95, stockLevel: 3),
+        Product.createProduct(name: "H", description: "H Desc", category: "4", price: 75.0, stockLevel: 2),
+        Product.createProduct(name: "I", description: "I Desc", category: "4", price: 1200.0, stockLevel: 4)
     ]                                                                                    
 
     override func viewDidLoad() {
