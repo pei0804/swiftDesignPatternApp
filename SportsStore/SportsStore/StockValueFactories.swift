@@ -12,6 +12,7 @@ class StockTotalFactory {
     enum Currency {
         case USD
         case GBP
+        case EUR
     }
 
     fileprivate(set) var formatter: StockValueFormatter?
@@ -20,8 +21,10 @@ class StockTotalFactory {
     class func getFactory(curr: Currency) -> StockTotalFactory {
         if curr == Currency.USD {
             return DollarStockTotalFactory.sharedInstance
-        } else {
+        } else if curr == Currency.GBP {
             return PoundStockTotalFactory.sharedInstance
+        } else {
+            return EuroHandlerAdapter.shardInstance
         }
     }
 }
@@ -54,6 +57,34 @@ private class PoundStockTotalFactory: StockTotalFactory {
         get {
             struct SingletonWrapper {
                 static let singleton = PoundStockTotalFactory()
+            }
+            return SingletonWrapper.singleton
+        }
+    }
+}
+
+class EuroHandlerAdapter: StockTotalFactory, StockValueConverter, StockValueFormatter {
+    private let handler: EuroHandler
+
+    override init() {
+        self.handler = EuroHandler()
+        super.init()
+        super.formatter = self
+        super.converter = self
+    }
+
+    func formatToal(total: Double) -> String {
+        return handler.getDisplayString(amount: total)
+    }
+
+    func convertTotal(total: Double) -> Double {
+        return handler.getCurrencyAmount(amount: total)
+    }
+
+    class var shardInstance: EuroHandlerAdapter {
+        get {
+            struct SingletonWrapper {
+                static let singleton = EuroHandlerAdapter()
             }
             return SingletonWrapper.singleton
         }
