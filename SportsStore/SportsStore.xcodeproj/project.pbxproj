@@ -17,6 +17,7 @@
 		6C1886071E7C0E8E00D4F3F4 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C1886061E7C0E8E00D4F3F4 /* Product.swift */; };
 		6C18860B1E7D19BB00D4F3F4 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C18860A1E7D19BB00D4F3F4 /* Logger.swift */; };
 		6C3F81AB1E811B5100C938B0 /* Euro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3F81AA1E811B5100C938B0 /* Euro.swift */; };
+		6C7270811E83A1970071CCAF /* EventBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7270801E83A1970071CCAF /* EventBridge.swift */; };
 		6CAA16241E7E9CFC002CB836 /* NetworkPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAA16231E7E9CFC002CB836 /* NetworkPool.swift */; };
 		6CAA16261E7E9D11002CB836 /* NetworkConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAA16251E7E9D11002CB836 /* NetworkConnection.swift */; };
 		6CAA16281E7EA24E002CB836 /* ProductDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CAA16271E7EA24E002CB836 /* ProductDataStore.swift */; };
@@ -50,6 +51,7 @@
 		6C1886061E7C0E8E00D4F3F4 /* Product.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		6C18860A1E7D19BB00D4F3F4 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		6C3F81AA1E811B5100C938B0 /* Euro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Euro.swift; sourceTree = "<group>"; };
+		6C7270801E83A1970071CCAF /* EventBridge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventBridge.swift; sourceTree = "<group>"; };
 		6CAA16231E7E9CFC002CB836 /* NetworkPool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkPool.swift; sourceTree = "<group>"; };
 		6CAA16251E7E9D11002CB836 /* NetworkConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkConnection.swift; sourceTree = "<group>"; };
 		6CAA16271E7EA24E002CB836 /* ProductDataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDataStore.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				6CD8AAE81E7FAAF200CC110F /* StockValueFactories.swift */,
 				6CD8AAEA1E7FEE2C00CC110F /* ChangeRecord.swift */,
 				6C3F81AA1E811B5100C938B0 /* Euro.swift */,
+				6C7270801E83A1970071CCAF /* EventBridge.swift */,
 			);
 			path = SportsStore;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 				6CD8AAEB1E7FEE2C00CC110F /* ChangeRecord.swift in Sources */,
 				6CAA16261E7E9D11002CB836 /* NetworkConnection.swift in Sources */,
 				6C3F81AB1E811B5100C938B0 /* Euro.swift in Sources */,
+				6C7270811E83A1970071CCAF /* EventBridge.swift in Sources */,
 				6636F77B19F65D24002DE278 /* AppDelegate.swift in Sources */,
 				6CD8AAE71E7FA92300CC110F /* StockValueImplementations.swift in Sources */,
 				6C1886051E7BFEB900D4F3F4 /* Utils.swift in Sources */,
