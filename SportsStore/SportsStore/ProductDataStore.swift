@@ -14,13 +14,19 @@ final class ProductDataStore {
     private var networkQueue: DispatchQueue
     lazy var products: [Product] = self.loadData()
 
+
     init() {
         networkQueue = DispatchQueue(label: "network-queue", qos: .background)
         uiQueue = DispatchQueue.main
     }
 
     private func loadData() -> [Product] {
-        for p in productData {
+        var products = [Product]()
+        for product in productData {
+            var p: Product = LowStockIncreaseDecorator(product: product)
+            if p.category == "1" {
+                p = SoccerDecreaseDecorator(product: p)
+            }
             networkQueue.sync {
                 let stockConn = NetworkPool.getConnection()
                 let level = stockConn.getStockLevel(name: p.name)
@@ -34,12 +40,13 @@ final class ProductDataStore {
                 }
                 NetworkPool.returnConnection(conn: stockConn)
             }
+            products.append(p)
         }
-        return productData
+        return products
     }
 
     private var productData: [Product] = [
-        Product(name: "AA", description: "AA info", category: "10", price: 100.5, stockLevel: 0),
+        Product(name: "AA", description: "AA info", category: "1", price: 100.5, stockLevel: 0),
         Product(name: "BB", description: "BB info", category: "10", price: 120, stockLevel: 0),
         Product(name: "CC", description: "CC info", category: "11", price: 1000, stockLevel: 0),
         Product(name: "DD", description: "AA info", category: "11", price: 11.2, stockLevel: 0),
